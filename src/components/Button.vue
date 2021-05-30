@@ -1,0 +1,18 @@
+<template>
+  <button
+    class="
+      w-full
+      bg-yellow-800
+      text-yellow-100
+      px-8
+      py-4
+      rounded-full
+      shadow-lg
+      font-bold
+      focus:outline-none
+      focus:bg-yellow-700
+    "
+  >
+    <slot></slot>
+  </button>
+</template>

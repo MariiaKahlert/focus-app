@@ -3,6 +3,7 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import "./index.css";
+import Button from "./components/Button";
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from "firebase/app";
@@ -43,4 +44,7 @@ export const auth = firebase.auth();
 // Initialize the FirebaseUI Widget using Firebase.
 export const authUi = new firebaseui.auth.AuthUI(auth);
 
-createApp(App).use(router).mount("#app");
+const app = createApp(App);
+app.use(router);
+app.component("Button", Button);
+app.mount("#app");
