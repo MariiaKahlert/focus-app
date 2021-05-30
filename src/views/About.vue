@@ -7,6 +7,12 @@
       <li>{{ label.name }}</li>
     </ul>
   </div>
+  <p>Create your own label</p>
+  <form @submit.prevent="handleCreate">
+    <input type="text" placeholder="name" v-model="labelName" />
+    <input type="text" placeholder="color" v-model="labelColor" />
+    <button type="submit">Create</button>
+  </form>
 </template>
 
 <script>
@@ -26,6 +32,20 @@ export default {
     } catch (err) {
       console.log("Error is About mounted: ", err);
     }
+  },
+  methods: {
+    async handleCreate() {
+      try {
+        await db.collection("labels").add({
+          name: this.labelName,
+          color: this.labelColor,
+          total_minutes: 0,
+          user_id: "1",
+        });
+      } catch (err) {
+        console.log("Error in handleCreate: ", err);
+      }
+    },
   },
 };
 </script>
