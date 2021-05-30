@@ -20,7 +20,7 @@ import { db } from "../main";
 export default {
   name: "About",
   data: function () {
-    return { labels: [] };
+    return { labels: [], labelName: null, labelColor: null };
   },
   props: {},
   mounted: async function () {
