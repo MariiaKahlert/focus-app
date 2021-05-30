@@ -57,7 +57,7 @@ export default {
 }
 #firebaseui-auth-container .firebaseui-idp-button[data-provider-id="password"] {
   background-color: #92410d !important;
-  font-family: "Merriweather Sans", sans-serif !important;
+  font-family: "Work Sans", sans-serif !important;
   padding: 1rem 2rem;
   max-width: 500px;
   font-weight: bold;
@@ -98,10 +98,10 @@ export default {
 #firebaseui-auth-container
   .firebaseui-idp-button[data-provider-id="google.com"]
   .firebaseui-idp-text {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 #firebaseui-auth-container {
-  font-family: "Merriweather Sans", sans-serif !important;
+  font-family: "Work Sans", sans-serif !important;
 }
 </style>
