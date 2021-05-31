@@ -7,7 +7,7 @@
       </p>
     </div>
     <div class="flex flex-col items-center mt-24">
-      <Button>Try now</Button>
+      <Button @click.prevent="handleTryNow">Try now</Button>
       <p class="mt-6">or</p>
       <div id="firebaseui-auth-container" class="mt-2"></div>
       <!-- <button v-else @click="handleLogout">Log out</button> -->
@@ -30,6 +30,9 @@ export default {
     // handleLogout: function () {
     //   auth.signOut();
     // },
+    handleTryNow: function () {
+      router.push("/free-timer");
+    },
     handleSignIn: function () {
       authUi.start("#firebaseui-auth-container", {
         callbacks: {
