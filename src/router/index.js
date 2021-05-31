@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Auth from "../views/Auth.vue";
-import Timer from "../components/Timer.vue";
+import TrialTimer from "../views/TrialTimer.vue";
 
 const routes = [
   {
@@ -15,9 +15,9 @@ const routes = [
     component: Auth,
   },
   {
-    path: "/free-timer",
-    name: "Timer",
-    component: Timer,
+    path: "/trial-timer",
+    name: "TrialTimer",
+    component: TrialTimer,
   },
   {
     path: "/about",

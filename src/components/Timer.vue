@@ -1,72 +1,56 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-evenly">
-    <template v-if="!timerStarted"
-      ><h1 v-if="!congrats" class="text-center text-xl w-2/3">
-        Try setting your own timer up to 60 minutes and focus on your task
-      </h1>
-      <h1 v-else class="text-center text-xl w-2/3">
-        Congrats! You've managed to focus during
-        <strong>{{ setTimeLimitInMin }}</strong>
-        {{ setTimeLimitInMin === "1" ? "minute" : "minutes" }}!
-      </h1>
-    </template>
-
-    <div class="flex flex-col items-center">
-      <div
-        class="
-          border-8 border-yellow-800
-          rounded-full
-          flex
-          justify-center
-          items-center
-          bg-yellow-100
-          shadow-lg
-          mt-12
-        "
-        style="height: 250px; width: 250px"
-      >
-        <div v-if="!timerStarted" class="font-bold text-4xl text-yellow-800">
-          <input
-            v-model="timeLimitInMin"
-            type="number"
-            placeholder="00"
-            class="
-              bg-yellow-100
-              focus:outline-none
-              w-16
-              border-2 border-yellow-800
-              rounded-lg
-              px-2
-              mr-2
-              font-bold
-            "
-            min="1"
-            max="60"
-          />
-          <span>:00</span>
-        </div>
-
-        <span v-else class="font-bold text-4xl">
-          {{ formattedTimeLeft }}
-        </span>
+  <div class="flex flex-col items-center">
+    <div
+      class="
+        border-8 border-yellow-800
+        rounded-full
+        flex
+        justify-center
+        items-center
+        bg-yellow-100
+        shadow-lg
+        mt-12
+      "
+      style="height: 250px; width: 250px"
+    >
+      <div v-if="!timerStarted" class="font-bold text-4xl text-yellow-800">
+        <input
+          v-model="timeLimitInMin"
+          type="number"
+          placeholder="00"
+          class="
+            bg-yellow-100
+            focus:outline-none
+            w-16
+            border-2 border-yellow-800
+            rounded-lg
+            px-2
+            mr-2
+            font-bold
+          "
+          min="1"
+          max="60"
+        />
+        <span>:00</span>
       </div>
 
-      <Button v-if="!timerStarted" class="mt-12" @click="startTimer"
-        >Focus</Button
-      >
-
-      <Button
-        design="outlined"
-        class="mt-12 text-lg"
-        v-else-if="cancelTimeCountdown"
-        @click="onTimesUp"
-      >
-        Cancel ({{ cancelTimeCountdown }})
-      </Button>
+      <span v-else class="font-bold text-4xl">
+        {{ formattedTimeLeft }}
+      </span>
     </div>
-    <router-link v-if="!timerStarted" to="/welcome" class="text-xl"
-      >Back</router-link
+
+    <Button v-if="!timerStarted" class="mt-12" @click="startTimer"
+      >Focus</Button
     >
+
+    <Button
+      design="outlined"
+      class="mt-12 text-lg"
+      v-else-if="cancelTimeCountdown"
+      @click="onTimesUp"
+    >
+      Cancel ({{ cancelTimeCountdown }})
+    </Button>
   </div>
 </template>
 
@@ -80,7 +64,6 @@ export default {
       timerInterval: null,
       timerStarted: false,
       cancelTimeInSec: 10,
-      congrats: false,
     };
   },
   mounted: function () {
@@ -99,15 +82,22 @@ export default {
         this.timerStarted = true;
         this.setTimeLimitInMin = this.timeLimitInMin;
         this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
+        this.$emit("startTimer", this.setTimeLimitInMin);
       }
     },
     onTimesUp: function () {
+      if (!this.timerStarted) {
+        return;
+      }
       clearInterval(this.timerInterval);
       this.timerStarted = false;
       if (this.timeLimitInMin * 60 === this.timePassed) {
-        this.congrats = true;
+        this.$emit("timerUp");
+      } else {
+        this.$emit("timerCancelled");
       }
       this.timeLimitInMin = null;
+      this.timePassed = 0;
     },
   },
   computed: {

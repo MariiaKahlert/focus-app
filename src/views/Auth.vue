@@ -31,7 +31,7 @@ export default {
     //   auth.signOut();
     // },
     handleTryNow: function () {
-      router.push("/free-timer");
+      router.push("/trial-timer");
     },
     handleSignIn: function () {
       authUi.start("#firebaseui-auth-container", {
