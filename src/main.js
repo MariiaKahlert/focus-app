@@ -46,9 +46,24 @@ export const auth = firebase.auth();
 // Initialize the FirebaseUI Widget using Firebase.
 export const authUi = new firebaseui.auth.AuthUI(auth);
 
+export let currentUser = null;
+let appMounted = false;
+
 const app = createApp(App);
-app.use(router);
+
 app.component("Button", Button);
 app.component("Timer", Timer);
 app.component("Menu", Menu);
-app.mount("#app");
+
+const mountApp = () => {
+  if (!appMounted) {
+    app.use(router);
+    app.mount("#app");
+    appMounted = true;
+  }
+};
+
+auth.onAuthStateChanged((user) => {
+  currentUser = user;
+  mountApp();
+});

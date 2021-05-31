@@ -2,12 +2,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import Auth from "../views/Auth.vue";
 import TrialTimer from "../views/TrialTimer.vue";
 import MainTimer from "../views/MainTimer.vue";
+import { currentUser } from "../main";
 
 const routes = [
   {
     path: "/",
     redirect: () => {
-      return "/welcome";
+      if (!currentUser) {
+        return "/welcome";
+      } else {
+        return "/main-timer";
+      }
     },
   },
   {
