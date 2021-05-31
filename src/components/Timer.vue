@@ -1,12 +1,16 @@
 <template>
   <div class="h-full flex flex-col items-center justify-evenly">
-    <h1 v-if="!timerStarted && !congrats" class="text-center text-xl w-2/3">
-      Try setting your own timer up to 60 minutes and focus on your task
-    </h1>
-    <h1 v-else-if="!timerStarted && congrats" class="text-center text-xl w-2/3">
-      Congrats! You've managed to focus during {{ setTimeLimitInMin }}
-      {{ setTimeLimitInMin === "1" ? "minute" : "minutes" }}!
-    </h1>
+    <template v-if="!timerStarted"
+      ><h1 v-if="!congrats" class="text-center text-xl w-2/3">
+        Try setting your own timer up to 60 minutes and focus on your task
+      </h1>
+      <h1 v-else class="text-center text-xl w-2/3">
+        Congrats! You've managed to focus during
+        <strong>{{ setTimeLimitInMin }}</strong>
+        {{ setTimeLimitInMin === "1" ? "minute" : "minutes" }}!
+      </h1>
+    </template>
+
     <div class="flex flex-col items-center">
       <div
         class="
@@ -46,9 +50,10 @@
           {{ formattedTimeLeft }}
         </span>
       </div>
-      <template v-if="!timerStarted">
-        <Button class="mt-12 text-xl" @click="startTimer">Focus</Button>
-      </template>
+
+      <Button v-if="!timerStarted" class="mt-12" @click="startTimer"
+        >Focus</Button
+      >
 
       <Button
         design="outlined"
@@ -59,7 +64,7 @@
         Cancel ({{ cancelTimeCountdown }})
       </Button>
     </div>
-    <router-link v-if="!timerStarted" to="/welcome" class="text-lg"
+    <router-link v-if="!timerStarted" to="/welcome" class="text-xl"
       >Back</router-link
     >
   </div>

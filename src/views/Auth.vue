@@ -8,7 +8,7 @@
     </div>
     <div class="flex flex-col items-center mt-24">
       <Button @click.prevent="handleTryNow">Try now</Button>
-      <p class="mt-6">or</p>
+      <p class="mt-6 text-xl">or</p>
       <div id="firebaseui-auth-container" class="mt-2"></div>
       <!-- <button v-else @click="handleLogout">Log out</button> -->
     </div>
@@ -78,7 +78,7 @@ export default {
   .firebaseui-idp-button[data-provider-id="password"]
   .firebaseui-idp-text {
   color: #fffbeb !important;
-  font-size: 16px !important;
+  font-size: 20px !important;
   padding-left: 0;
 }
 
@@ -103,7 +103,7 @@ export default {
 #firebaseui-auth-container
   .firebaseui-idp-button[data-provider-id="google.com"]
   .firebaseui-idp-text {
-  font-size: 16px !important;
+  font-size: 20px !important;
 }
 
 #firebaseui-auth-container {
