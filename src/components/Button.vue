@@ -1,7 +1,7 @@
 <template>
   <button
     :class="{
-      'bg-yellow-800 text-yellow-50 shadow-lg focus:bg-yellow-700':
+      'bg-yellow-800 text-yellow-50 shadow-lg focus:bg-opacity-75':
         design === 'filled',
       'text-yellow-800 border border-yellow-800 focus:text-opacity-50 focus:border-opacity-50':
         design === 'outlined',
