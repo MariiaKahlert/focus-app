@@ -11,7 +11,11 @@
       <button
         v-for="label in labels"
         :key="label.name"
-        @click="selectLabel"
+        @click="selectLabel(label.id)"
+        :class="{
+          'bg-yellow-800 text-yellow-50': selectedLabelId === label.id,
+          'text-yellow-800 text-opacity-50': selectedLabelId !== label.id,
+        }"
         class="
           text-lg
           mt-3
@@ -21,9 +25,6 @@
           font-bold
           focus:outline-none
           border-2 border-yellow-800 border-opacity-50
-          text-yellow-800 text-opacity-50
-          focus:bg-yellow-800
-          focus:text-yellow-50
         "
       >
         {{ label.name }}
@@ -48,7 +49,7 @@
 
     <form v-else @submit.prevent="handleCreate" class="flex items-center">
       <button
-        @click="createLabelShowed = false"
+        @click="closeCreateLabel"
         class="
           mr-4
           text-2xl text-yellow-800 text-opacity-50
@@ -101,6 +102,7 @@ export default {
       labelName: null,
       labelColor: null,
       createLabelShowed: false,
+      selectedLabelId: null,
     };
   },
   props: {},
@@ -108,7 +110,10 @@ export default {
     try {
       const labelsQuery = db.collection("labels").where("user_id", "==", "1");
       labelsQuery.onSnapshot((snapshot) => {
-        this.labels = snapshot.docs.map((doc) => doc.data());
+        this.labels = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
       });
     } catch (err) {
       console.log("Error is MainTimer mounted: ", err);
@@ -122,14 +127,26 @@ export default {
           total_minutes: 0,
           user_id: "1",
         });
+        this.closeCreateLabel();
       } catch (err) {
         console.log("Error in handleCreate: ", err);
       }
     },
-    // selectLabel: function () {},
+    selectLabel: function (labelId) {
+      if (!this.selectedLabelId || this.selectedLabelId !== labelId) {
+        this.selectedLabelId = labelId;
+      } else {
+        this.selectedLabelId = null;
+      }
+    },
     showCreateLabel: function () {
       this.createLabelShowed = true;
     },
+    closeCreateLabel: function () {
+      this.createLabelShowed = false;
+      this.labelName = null;
+    },
+
     showMenu: function () {
       console.log("Menu is showed");
     },
