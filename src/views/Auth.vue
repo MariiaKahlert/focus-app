@@ -38,7 +38,7 @@ export default {
         callbacks: {
           // Do not redirect after signing in
           signInSuccessWithAuthResult: () => {
-            router.push("/about");
+            router.push("/main-timer");
             return false;
           },
         },
