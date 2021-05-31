@@ -47,7 +47,7 @@
       design="outlined"
       class="mt-12 text-lg"
       v-else-if="cancelTimeCountdown"
-      @click="onTimesUp"
+      @click="stopTimer"
     >
       Cancel ({{ cancelTimeCountdown }})
     </Button>
@@ -72,7 +72,7 @@ export default {
   watch: {
     timePassed(newValue) {
       if (newValue === this.timeLimitInMin * 60) {
-        this.onTimesUp();
+        this.stopTimer();
       }
     },
   },
@@ -85,7 +85,7 @@ export default {
         this.$emit("startTimer", this.setTimeLimitInMin);
       }
     },
-    onTimesUp: function () {
+    stopTimer: function () {
       if (!this.timerStarted) {
         return;
       }

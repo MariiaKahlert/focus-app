@@ -1,18 +1,26 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="h-full flex flex-col items-center justify-evenly">
+    <h1 class="text-2xl font-bold">Welcome!</h1>
+    <div class="flex w-full justify-evenly">
+      <button
+        v-for="label in labels"
+        :key="label.name"
+        :style="{ 'border-color': label.color, color: label.color }"
+        class="py-2 px-4 rounded-full font-bold focus:outline-none border-2"
+      >
+        {{ label.name }}
+      </button>
+    </div>
+    <div v-if="false">
+      <p>Create your own label</p>
+      <form @submit.prevent="handleCreate">
+        <input type="text" placeholder="name" v-model="labelName" />
+        <input type="text" placeholder="color" v-model="labelColor" />
+        <button type="submit">Create</button>
+      </form>
+    </div>
+    <Timer />
   </div>
-  <div>
-    <ul v-for="label in labels" :key="label.name">
-      <li>{{ label.name }}</li>
-    </ul>
-  </div>
-  <p>Create your own label</p>
-  <form @submit.prevent="handleCreate">
-    <input type="text" placeholder="name" v-model="labelName" />
-    <input type="text" placeholder="color" v-model="labelColor" />
-    <button type="submit">Create</button>
-  </form>
 </template>
 
 <script>

@@ -1,16 +1,15 @@
 <template>
   <div class="h-full flex flex-col items-center justify-evenly">
-    <!-- <template v-if="!timerStarted" -->
-
-    <h1 v-if="!timerStarted && !congrats" class="text-center text-xl w-2/3">
-      Try setting your own timer up to 60 minutes and focus on your task
-    </h1>
-    <h1 v-else-if="!timerStarted && congrats" class="text-center text-xl w-2/3">
-      Congrats! You've managed to focus during
-      <strong>{{ setTimeLimitInMin }}</strong>
-      {{ setTimeLimitInMin === "1" ? "minute" : "minutes" }}!
-    </h1>
-    <!-- </template> -->
+    <template v-if="!timerStarted">
+      <h1 v-if="!congrats" class="text-center text-xl w-2/3">
+        Try setting your own timer up to 60 minutes and focus on your task
+      </h1>
+      <h1 v-else class="text-center text-xl w-2/3">
+        Congrats! You've managed to focus during
+        <strong>{{ setTimeLimitInMin }}</strong>
+        {{ setTimeLimitInMin === "1" ? "minute" : "minutes" }}!
+      </h1>
+    </template>
     <Timer
       @startTimer="startTimer"
       @timerUp="timerUp"
