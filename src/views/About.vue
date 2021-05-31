@@ -5,8 +5,18 @@
       <button
         v-for="label in labels"
         :key="label.name"
-        :style="{ 'border-color': label.color, color: label.color }"
-        class="py-2 px-4 rounded-full font-bold focus:outline-none border-2"
+        class="
+          text-lg
+          py-2
+          px-4
+          rounded-full
+          font-bold
+          focus:outline-none
+          border-2 border-yellow-800 border-opacity-50
+          text-yellow-800 text-opacity-50
+          focus:bg-yellow-800
+          focus:text-yellow-50
+        "
       >
         {{ label.name }}
       </button>
