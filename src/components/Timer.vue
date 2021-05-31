@@ -12,7 +12,26 @@
       "
       style="height: 250px; width: 250px"
     >
-      <span class="font-bold text-4xl">
+      <div class="font-bold text-4xl text-yellow-800">
+        <input
+          type="number"
+          placeholder="00"
+          class="
+            bg-yellow-100
+            focus:outline-none
+            w-16
+            border-2 border-yellow-800
+            rounded-lg
+            px-2
+            mr-2
+            font-bold
+          "
+          min="0"
+        />
+        <span>:00</span>
+      </div>
+
+      <span v-if="false" class="font-bold text-4xl">
         <!-- Remaining time label -->
         {{ formattedTimeLeft }}
       </span>
@@ -61,3 +80,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::placeholder {
+  color: #92410d;
+  opacity: 0.5;
+  font-weight: bold;
+}
+</style>
