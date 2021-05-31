@@ -3,7 +3,7 @@
     class="
       w-full
       bg-yellow-800
-      text-yellow-100
+      text-yellow-50
       px-8
       py-4
       rounded-full

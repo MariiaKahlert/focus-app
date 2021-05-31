@@ -1,8 +1,10 @@
 <template>
   <div class="h-screen flex flex-col justify-center items-center">
-    <div class="text-center">
-      <h1>Welcome to Focus</h1>
-      <p>I'm going to help you stay in focus whenever you need</p>
+    <div class="flex flex-col items-center text-center">
+      <h1 class="font-bold text-4xl">Focus</h1>
+      <p class="mt-12 w-2/3 text-xl">
+        I'm going to help you stay in focus whenever you need
+      </p>
     </div>
     <div class="flex flex-col items-center mt-24">
       <Button>Try now</Button>
@@ -72,7 +74,7 @@ export default {
 #firebaseui-auth-container
   .firebaseui-idp-button[data-provider-id="password"]
   .firebaseui-idp-text {
-  color: #fef3c8 !important;
+  color: #fffbeb !important;
   font-size: 16px !important;
   padding-left: 0;
 }
