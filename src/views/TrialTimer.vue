@@ -1,7 +1,8 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-evenly">
+  <div class="h-full flex flex-col items-center">
     <template v-if="!timerStarted">
-      <h1 v-if="!congrats" class="text-center text-xl w-2/3">
+      <h1 class="font-bold text-4xl">Focus</h1>
+      <h1 v-if="!congrats" class="text-center text-xl w-2/3 mt-4">
         Try setting your own timer up to 60 min and focus on your task
       </h1>
       <h1 v-else class="text-center text-xl w-2/3">
@@ -14,9 +15,10 @@
       @startTimer="startTimer"
       @timerUp="timerUp"
       @timerCancelled="timerCancelled"
+      class="mt-12"
     />
 
-    <router-link v-if="!timerStarted" to="/welcome" class="text-xl"
+    <router-link v-if="!timerStarted" to="/welcome" class="text-xl mt-8"
       >Back</router-link
     >
   </div>

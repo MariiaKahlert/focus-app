@@ -3,7 +3,6 @@
     v-if="!loading"
     class="
       h-full
-      w-1/2
       bg-yellow-800
       px-4
       py-6
@@ -11,6 +10,7 @@
       flex flex-col
       justify-between
     "
+    style="width: 200px"
   >
     <div>
       <div class="text-xl flex flex-col items-center">

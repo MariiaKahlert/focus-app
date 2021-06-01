@@ -68,7 +68,9 @@
       v-if="!timerStarted && !createLabelShowed"
       class="flex text-lg items-center mt-6"
     >
-      <p class="text-yellow-800 text-opacity-50">Make your own label</p>
+      <p @click="showCreateLabel" class="text-yellow-800 text-opacity-50">
+        Make your own label
+      </p>
       <button
         class="
           ml-4
@@ -84,11 +86,12 @@
     </div>
 
     <form
-      v-else-if="!timerStarted && createLabelShowed"
+      v-show="!timerStarted && createLabelShowed"
       @submit.prevent="handleCreate"
       class="flex items-center mt-6"
     >
       <button
+        type="button"
         @click="closeCreateLabel"
         class="
           mr-4

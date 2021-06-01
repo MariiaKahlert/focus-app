@@ -15,6 +15,8 @@
     >
       <div v-if="!timerStarted" class="font-bold text-4xl text-yellow-800">
         <input
+          @blur="validateTimeInput"
+          pattern="[0-9]*"
           v-model="timeLimitInMin"
           type="number"
           placeholder="00"
@@ -98,6 +100,14 @@ export default {
       }
       this.timeLimitInMin = null;
       this.timePassed = 0;
+    },
+    validateTimeInput: function () {
+      if (this.timeLimitInMin > 60) {
+        this.timeLimitInMin = 60;
+      }
+      if (this.timeLimitInMin && this.timeLimitInMin < 1) {
+        this.timeLimitInMin = 1;
+      }
     },
   },
   computed: {

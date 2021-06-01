@@ -1,8 +1,8 @@
 <template>
-  <div class="h-screen flex flex-col items-center">
-    <div class="flex flex-col items-center text-center mt-4">
+  <div class="h-full flex flex-col items-center">
+    <div class="flex flex-col items-center text-center">
       <h1 class="font-bold text-4xl">Focus</h1>
-      <p class="mt-4 w-2/3 text-xl text-yellow-800 text-opacity-75">
+      <p class="mt-4 w-2/3 text-xl text-yellow-800">
         Stay in focus whenever you need
       </p>
       <img
