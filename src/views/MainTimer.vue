@@ -1,10 +1,10 @@
 <template>
   <div class="h-full flex flex-col items-center mt-10">
-    <h1 class="text-xl font-bold w-2/3 text-center">
+    <h1 v-if="!timerStarted" class="text-xl font-bold w-2/3 text-center">
       Set up a timer up to 60 min and start focusing
     </h1>
 
-    <div class="flex w-full justify-evenly flex-wrap mt-4">
+    <div v-if="!timerStarted" class="flex w-full justify-evenly flex-wrap mt-4">
       <button
         v-for="label in labels"
         :key="label.name"
@@ -27,8 +27,28 @@
         {{ label.name }}
       </button>
     </div>
+    <div v-else class="flex w-full justify-evenly flex-wrap mt-4">
+      <p
+        class="
+          text-lg
+          mt-3
+          py-2
+          px-4
+          rounded-full
+          font-bold
+          focus:outline-none
+          bg-yellow-800
+          text-yellow-50
+        "
+      >
+        {{ selectedLabel.name }}
+      </p>
+    </div>
 
-    <div v-if="!createLabelShowed" class="flex text-lg items-center mt-6">
+    <div
+      v-if="!timerStarted && !createLabelShowed"
+      class="flex text-lg items-center mt-6"
+    >
       <p class="text-yellow-800 text-opacity-50">Make your own label</p>
       <button
         class="
@@ -44,7 +64,11 @@
       </button>
     </div>
 
-    <form v-else @submit.prevent="handleCreate" class="flex items-center mt-6">
+    <form
+      v-else-if="!timerStarted && createLabelShowed"
+      @submit.prevent="handleCreate"
+      class="flex items-center mt-6"
+    >
       <button
         @click="closeCreateLabel"
         class="
@@ -85,7 +109,12 @@
       </button>
     </form>
 
-    <Timer class="mb-12" @timerUp="timerUp" />
+    <Timer
+      class="mb-12"
+      @startTimer="startTimer"
+      @timerUp="timerUp"
+      @timerCancelled="timerCancelled"
+    />
   </div>
 </template>
 
@@ -101,9 +130,11 @@ export default {
       labelName: null,
       labelColor: null,
       createLabelShowed: false,
+      selectedLabel: null,
       selectedLabelId: null,
       stopAuthStateChanged: null,
       totalFocusTime: null,
+      timerStarted: false,
     };
   },
   props: {},
@@ -182,7 +213,15 @@ export default {
       this.createLabelShowed = false;
       this.labelName = null;
     },
+    startTimer: function () {
+      const label = this.labels.find(
+        (label) => label.id === this.selectedLabelId
+      );
+      this.selectedLabel = label;
+      this.timerStarted = true;
+    },
     timerUp: async function (setTimeLimitInMin) {
+      this.timerStarted = false;
       this.totalFocusTime = setTimeLimitInMin;
       await db
         .collection("users")
@@ -202,6 +241,9 @@ export default {
             ),
           });
       }
+    },
+    timerCancelled: function () {
+      this.timerStarted = false;
     },
   },
 };
