@@ -19,16 +19,37 @@ const routes = [
     path: "/welcome",
     name: "Auth",
     component: Auth,
+    beforeEnter: (to, from, next) => {
+      if (currentUser) {
+        next("/main-timer");
+        return;
+      }
+      next();
+    },
   },
   {
     path: "/trial-timer",
     name: "TrialTimer",
     component: TrialTimer,
+    beforeEnter: (to, from, next) => {
+      if (!currentUser) {
+        next("/main-timer");
+        return;
+      }
+      next();
+    },
   },
   {
     path: "/main-timer",
     name: "MainTimer",
     component: MainTimer,
+    beforeEnter: (to, from, next) => {
+      if (!currentUser) {
+        next("/welcome");
+        return;
+      }
+      next();
+    },
   },
 ];
 
