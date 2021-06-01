@@ -33,7 +33,7 @@ const routes = [
     name: "TrialTimer",
     component: TrialTimer,
     beforeEnter: (to, from, next) => {
-      if (!currentUser) {
+      if (currentUser) {
         next("/main-timer");
         return;
       }
