@@ -10,7 +10,6 @@
       <Button @click.prevent="handleTryNow">Try now</Button>
       <p class="mt-6 text-xl">or</p>
       <div id="firebaseui-auth-container" class="mt-2"></div>
-      <!-- <button v-else @click="handleLogout">Log out</button> -->
     </div>
   </div>
 </template>
@@ -27,9 +26,6 @@ export default {
     };
   },
   methods: {
-    // handleLogout: function () {
-    //   auth.signOut();
-    // },
     handleTryNow: function () {
       router.push("/trial-timer");
     },

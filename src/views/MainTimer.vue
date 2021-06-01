@@ -1,11 +1,5 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-between">
-    <img
-      @click="showMenu"
-      src="../assets/menu.png"
-      alt="menu"
-      class="h-7 w-7 self-start"
-    />
+  <div class="h-full flex flex-col items-center justify-evenly">
     <h1 class="text-2xl font-bold">Welcome!</h1>
     <div class="flex w-full justify-evenly flex-wrap">
       <button
@@ -88,7 +82,7 @@
       </button>
     </form>
 
-    <Timer class="mb-8" />
+    <Timer />
   </div>
 </template>
 
@@ -145,10 +139,6 @@ export default {
     closeCreateLabel: function () {
       this.createLabelShowed = false;
       this.labelName = null;
-    },
-
-    showMenu: function () {
-      console.log("Menu is showed");
     },
   },
 };
