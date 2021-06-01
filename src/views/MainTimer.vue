@@ -102,19 +102,36 @@ export default {
       labelColor: null,
       createLabelShowed: false,
       selectedLabelId: null,
+      stopAuthStateChanged: null,
     };
   },
   props: {},
   mounted: async function () {
-    auth.onAuthStateChanged(async (user) => {
+    this.stopAuthStateChanged = auth.onAuthStateChanged(async (user) => {
       this.currentUser = user;
+      if (!this.currentUser) {
+        return;
+      }
       try {
+        // Add new user to Firestore
+        const user = await db
+          .collection("users")
+          .doc(this.currentUser.uid)
+          .get();
+        if (!user.exists) {
+          await db.collection("users").doc(this.currentUser.uid).set({
+            name: this.currentUser.displayName,
+            total_focus_time: 0,
+          });
+        }
+
+        // Get and/or add labels
         const labelsQuery = db
           .collection("labels")
           .where("user_id", "==", this.currentUser.uid);
-        const allLabels = await db.collection("labels").get();
+        const allLabels = await labelsQuery.get();
+        const defaultLabels = ["Work", "Study"];
         if (allLabels.docs.length === 0) {
-          const defaultLabels = ["Work", "Study"];
           for (let label of defaultLabels) {
             await db.collection("labels").add({
               name: label,
@@ -133,6 +150,9 @@ export default {
         console.log("Error is MainTimer mounted: ", err);
       }
     });
+  },
+  unmounted: function () {
+    this.stopAuthStateChanged();
   },
   methods: {
     async handleCreate() {

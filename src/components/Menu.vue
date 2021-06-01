@@ -34,7 +34,6 @@
 
 <script>
 import { auth } from "../main";
-import router from "../router";
 export default {
   data: function () {
     return {
@@ -49,9 +48,8 @@ export default {
     });
   },
   methods: {
-    handleLogout: function () {
+    handleLogout: async function () {
       auth.signOut();
-      router.push("/welcome");
       this.$emit("closeMenu");
     },
   },

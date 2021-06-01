@@ -65,5 +65,8 @@ const mountApp = () => {
 
 auth.onAuthStateChanged((user) => {
   currentUser = user;
+  if (!user) {
+    router.push("/welcome");
+  }
   mountApp();
 });
