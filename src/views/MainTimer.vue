@@ -85,13 +85,13 @@
       </button>
     </form>
 
-    <Timer class="mb-12" />
+    <Timer class="mb-12" @timerUp="timerUp" />
   </div>
 </template>
 
 <script>
 import { db, auth } from "../main";
-
+import firebase from "firebase/app";
 export default {
   name: "MainTimer",
   data: function () {
@@ -103,6 +103,7 @@ export default {
       createLabelShowed: false,
       selectedLabelId: null,
       stopAuthStateChanged: null,
+      totalFocusTime: null,
     };
   },
   props: {},
@@ -180,6 +181,17 @@ export default {
     closeCreateLabel: function () {
       this.createLabelShowed = false;
       this.labelName = null;
+    },
+    timerUp: async function (setTimeLimitInMin) {
+      this.totalFocusTime = setTimeLimitInMin;
+      await db
+        .collection("users")
+        .doc(this.currentUser.uid)
+        .update({
+          total_focus_time: firebase.firestore.FieldValue.increment(
+            parseInt(this.totalFocusTime)
+          ),
+        });
     },
   },
 };

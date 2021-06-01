@@ -64,6 +64,8 @@ export default {
       timerInterval: null,
       timerStarted: false,
       cancelTimeInSec: 10,
+      // startTime: null,
+      // endTime: null,
     };
   },
   mounted: function () {
@@ -92,7 +94,7 @@ export default {
       clearInterval(this.timerInterval);
       this.timerStarted = false;
       if (this.timeLimitInMin * 60 === this.timePassed) {
-        this.$emit("timerUp");
+        this.$emit("timerUp", this.setTimeLimitInMin);
       } else {
         this.$emit("timerCancelled");
       }
