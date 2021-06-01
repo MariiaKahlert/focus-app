@@ -64,8 +64,6 @@ export default {
       timerInterval: null,
       timerStarted: false,
       cancelTimeInSec: 10,
-      // startTime: null,
-      // endTime: null,
     };
   },
   mounted: function () {

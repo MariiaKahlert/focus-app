@@ -25,6 +25,12 @@
         "
       >
         {{ label.name }}
+        <span
+          v-if="!label.default"
+          class="text-yellow-800 ml-1"
+          @click.prevent="deleteLabel(label.id)"
+          >X</span
+        >
       </button>
     </div>
     <div v-else class="flex w-full justify-evenly flex-wrap mt-4">
@@ -167,6 +173,7 @@ export default {
           for (let label of defaultLabels) {
             await db.collection("labels").add({
               name: label,
+              default: true,
               total_minutes: 0,
               user_id: this.currentUser.uid,
             });
@@ -244,6 +251,9 @@ export default {
     },
     timerCancelled: function () {
       this.timerStarted = false;
+    },
+    deleteLabel: async function (labelId) {
+      await db.collection("labels").doc(labelId).delete();
     },
   },
 };
