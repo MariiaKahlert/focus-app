@@ -192,6 +192,16 @@ export default {
             parseInt(this.totalFocusTime)
           ),
         });
+      if (this.selectedLabelId) {
+        await db
+          .collection("labels")
+          .doc(this.selectedLabelId)
+          .update({
+            total_minutes: firebase.firestore.FieldValue.increment(
+              parseInt(this.totalFocusTime)
+            ),
+          });
+      }
     },
   },
 };
