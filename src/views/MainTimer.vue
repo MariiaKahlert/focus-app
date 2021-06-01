@@ -1,7 +1,10 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-evenly">
-    <h1 class="text-2xl font-bold">Welcome!</h1>
-    <div class="flex w-full justify-evenly flex-wrap">
+  <div class="h-full flex flex-col items-center mt-10">
+    <h1 class="text-xl font-bold w-2/3 text-center">
+      Set up a timer up to 60 min and start focusing
+    </h1>
+
+    <div class="flex w-full justify-evenly flex-wrap mt-4">
       <button
         v-for="label in labels"
         :key="label.name"
@@ -25,7 +28,7 @@
       </button>
     </div>
 
-    <div v-if="!createLabelShowed" class="flex text-lg items-center">
+    <div v-if="!createLabelShowed" class="flex text-lg items-center mt-6">
       <p class="text-yellow-800 text-opacity-50">Make your own label</p>
       <button
         class="
@@ -41,7 +44,7 @@
       </button>
     </div>
 
-    <form v-else @submit.prevent="handleCreate" class="flex items-center">
+    <form v-else @submit.prevent="handleCreate" class="flex items-center mt-6">
       <button
         @click="closeCreateLabel"
         class="
@@ -82,7 +85,7 @@
       </button>
     </form>
 
-    <Timer />
+    <Timer class="mb-12" />
   </div>
 </template>
 

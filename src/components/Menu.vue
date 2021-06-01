@@ -1,8 +1,31 @@
 <template>
-  <div class="h-full w-1/2 bg-yellow-800 p-4">
+  <div
+    v-if="!loading"
+    class="
+      h-full
+      w-1/2
+      bg-yellow-800
+      px-4
+      py-6
+      text-yellow-50
+      flex flex-col
+      justify-between
+    "
+  >
+    <div class="text-xl">
+      <p>Welcome,</p>
+      <p class="font-bold">{{ currentUser.displayName }}</p>
+    </div>
+
     <button
       @click="handleLogout"
-      class="text-yellow-50 focus:outline-none focus:text-opacity-75"
+      class="
+        text-yellow-50
+        focus:outline-none
+        focus:text-opacity-75
+        text-xl
+        self-start
+      "
     >
       Log out
     </button>
@@ -13,6 +36,18 @@
 import { auth } from "../main";
 import router from "../router";
 export default {
+  data: function () {
+    return {
+      currentUser: null,
+      loading: true,
+    };
+  },
+  mounted: function () {
+    auth.onAuthStateChanged((user) => {
+      this.currentUser = user;
+      this.loading = false;
+    });
+  },
   methods: {
     handleLogout: function () {
       auth.signOut();
