@@ -39,7 +39,9 @@
       </span>
     </div>
 
-    <Button v-if="!timerStarted" class="mt-8" @click="startTimer">Focus</Button>
+    <Button v-if="!timerStarted" class="mt-12" @click="startTimer"
+      >Focus</Button
+    >
 
     <Button
       design="outlined"

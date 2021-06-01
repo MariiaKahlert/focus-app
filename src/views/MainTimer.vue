@@ -106,15 +106,24 @@ export default {
   },
   props: {},
   mounted: async function () {
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
       this.currentUser = user;
-      // console.log(this.currentUser.uid);
       try {
         const labelsQuery = db
           .collection("labels")
-          .where("user_id", "in", ["1", this.currentUser.uid]);
-
-        labelsQuery.onSnapshot((snapshot) => {
+          .where("user_id", "==", this.currentUser.uid);
+        const allLabels = await db.collection("labels").get();
+        if (allLabels.docs.length === 0) {
+          const defaultLabels = ["Work", "Study"];
+          for (let label of defaultLabels) {
+            await db.collection("labels").add({
+              name: label,
+              total_minutes: 0,
+              user_id: this.currentUser.uid,
+            });
+          }
+        }
+        labelsQuery.onSnapshot(async (snapshot) => {
           this.labels = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
