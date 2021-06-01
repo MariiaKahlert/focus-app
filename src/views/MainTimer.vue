@@ -87,11 +87,13 @@
 </template>
 
 <script>
-import { db } from "../main";
+import { db, auth } from "../main";
+
 export default {
   name: "MainTimer",
   data: function () {
     return {
+      currentUser: null,
       labels: [],
       labelName: null,
       labelColor: null,
@@ -101,17 +103,24 @@ export default {
   },
   props: {},
   mounted: async function () {
-    try {
-      const labelsQuery = db.collection("labels").where("user_id", "==", "1");
-      labelsQuery.onSnapshot((snapshot) => {
-        this.labels = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-      });
-    } catch (err) {
-      console.log("Error is MainTimer mounted: ", err);
-    }
+    auth.onAuthStateChanged((user) => {
+      this.currentUser = user;
+      // console.log(this.currentUser.uid);
+      try {
+        const labelsQuery = db
+          .collection("labels")
+          .where("user_id", "in", ["1", this.currentUser.uid]);
+
+        labelsQuery.onSnapshot((snapshot) => {
+          this.labels = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+        });
+      } catch (err) {
+        console.log("Error is MainTimer mounted: ", err);
+      }
+    });
   },
   methods: {
     async handleCreate() {
@@ -119,7 +128,7 @@ export default {
         await db.collection("labels").add({
           name: this.labelName,
           total_minutes: 0,
-          user_id: "1",
+          user_id: this.currentUser.uid,
         });
         this.closeCreateLabel();
       } catch (err) {
