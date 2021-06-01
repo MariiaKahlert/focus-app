@@ -17,6 +17,29 @@
       <p class="font-bold">{{ currentUser.displayName }}</p>
     </div>
 
+    <router-link
+      to="/main-timer"
+      class="
+        text-yellow-50
+        focus:outline-none
+        focus:text-opacity-75
+        text-xl
+        self-start
+      "
+      >Timer</router-link
+    >
+
+    <router-link
+      to="/statistics"
+      class="
+        text-yellow-50
+        focus:outline-none
+        focus:text-opacity-75
+        text-xl
+        self-start
+      "
+      >Statistics</router-link
+    >
     <button
       @click="handleLogout"
       class="

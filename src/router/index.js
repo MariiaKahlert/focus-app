@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Auth from "../views/Auth.vue";
 import TrialTimer from "../views/TrialTimer.vue";
 import MainTimer from "../views/MainTimer.vue";
+import Statistics from "../views/Statistics.vue";
 import { currentUser } from "../main";
 
 const routes = [
@@ -43,6 +44,18 @@ const routes = [
     path: "/main-timer",
     name: "MainTimer",
     component: MainTimer,
+    beforeEnter: (to, from, next) => {
+      if (!currentUser) {
+        next("/welcome");
+        return;
+      }
+      next();
+    },
+  },
+  {
+    path: "/statistics",
+    name: "Statistics",
+    component: Statistics,
     beforeEnter: (to, from, next) => {
       if (!currentUser) {
         next("/welcome");
