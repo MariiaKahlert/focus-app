@@ -12,34 +12,46 @@
       justify-between
     "
   >
-    <div class="text-xl">
-      <p>Welcome,</p>
-      <p class="font-bold">{{ currentUser.displayName }}</p>
+    <div>
+      <div class="text-xl flex flex-col items-center">
+        <img
+          style="width: 100px; height: 100px"
+          class=""
+          src="../assets/focus-3.png"
+          alt=""
+        />
+        <p class="mt-2">Welcome</p>
+        <p class="font-bold">{{ currentUser.displayName }}</p>
+      </div>
+      <div class="flex flex-col p-4 mt-16">
+        <router-link
+          to="/main-timer"
+          @click="$emit('closeMenu')"
+          class="
+            text-yellow-50
+            focus:outline-none
+            focus:text-opacity-75
+            text-xl
+            self-start
+          "
+          >Timer</router-link
+        >
+
+        <router-link
+          to="/statistics"
+          @click="$emit('closeMenu')"
+          class="
+            text-yellow-50
+            focus:outline-none
+            focus:text-opacity-75
+            text-xl
+            self-start
+            mt-4
+          "
+          >Statistics</router-link
+        >
+      </div>
     </div>
-
-    <router-link
-      to="/main-timer"
-      class="
-        text-yellow-50
-        focus:outline-none
-        focus:text-opacity-75
-        text-xl
-        self-start
-      "
-      >Timer</router-link
-    >
-
-    <router-link
-      to="/statistics"
-      class="
-        text-yellow-50
-        focus:outline-none
-        focus:text-opacity-75
-        text-xl
-        self-start
-      "
-      >Statistics</router-link
-    >
     <button
       @click="handleLogout"
       class="
@@ -48,10 +60,15 @@
         focus:text-opacity-75
         text-xl
         self-start
+        mt-48
+        pl-4
       "
     >
       Log out
     </button>
+    <p class="text-yellow-50 text-opacity-75 text-center">
+      Illustrations designed by Freepik Storyset
+    </p>
   </div>
 </template>
 

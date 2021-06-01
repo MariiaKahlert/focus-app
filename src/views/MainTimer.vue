@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex flex-col items-center mt-10">
+  <div class="h-full flex flex-col items-center mt-12">
     <h1 v-if="!timerStarted" class="text-xl font-bold w-2/3 text-center">
       Set up a timer up to 60 min and start focusing
     </h1>
@@ -27,17 +27,30 @@
         {{ label.name }}
         <span
           v-if="!label.default"
+          :class="{
+            hidden: selectedLabelId === label.id,
+          }"
           class="text-yellow-800 ml-1"
           @click.prevent="deleteLabel(label.id)"
           >X</span
         >
       </button>
     </div>
-    <div v-else class="flex w-full justify-evenly flex-wrap mt-4">
-      <p
+    <div
+      v-else
+      class="flex flex-col items-center w-full justify-evenly flex-wrap mt-4"
+    >
+      <img
+        style="width: 200px; height: 200px"
+        class="-mt-10"
+        src="../assets/focus.png"
+        alt=""
+      />
+      <span
+        v-if="selectedLabel"
         class="
           text-lg
-          mt-3
+          mt-4
           py-2
           px-4
           rounded-full
@@ -48,7 +61,7 @@
         "
       >
         {{ selectedLabel.name }}
-      </p>
+      </span>
     </div>
 
     <div

@@ -1,16 +1,25 @@
 <template>
-  <div class="h-screen flex flex-col justify-center items-center">
-    <div class="flex flex-col items-center text-center">
+  <div class="h-screen flex flex-col items-center">
+    <div class="flex flex-col items-center text-center mt-4">
       <h1 class="font-bold text-4xl">Focus</h1>
-      <p class="mt-12 w-2/3 text-xl">
-        I'm going to help you stay in focus whenever you need
+      <p class="mt-4 w-2/3 text-xl text-yellow-800 text-opacity-75">
+        Stay in focus whenever you need
       </p>
+      <img
+        style="width: 200px; height: 200px"
+        class="mt-4"
+        src="../assets/focus-1.png"
+        alt=""
+      />
     </div>
-    <div class="flex flex-col items-center mt-24">
+    <div class="flex flex-col items-center mt-10">
       <Button @click.prevent="handleTryNow">Try now</Button>
-      <p class="mt-6 text-xl">or</p>
-      <div id="firebaseui-auth-container" class="mt-2"></div>
+      <p class="mt-6 text-xl text-yellow-800 text-opacity-75">or</p>
+      <div id="firebaseui-auth-container" class="mt-2 mb-4"></div>
     </div>
+    <p class="text-yellow-800 text-opacity-75 text-center">
+      Illustrations designed by Freepik Storyset
+    </p>
   </div>
 </template>
 
