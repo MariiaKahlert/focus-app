@@ -4,15 +4,11 @@
     style="height: -webkit-fill-available"
   >
     <router-view />
-    <img
-      v-if="currentUser"
-      @click="showMenu"
-      src="./assets/menu.png"
-      alt="menu"
-      class="h-7 w-7 absolute top-4"
-    />
+    <button v-if="currentUser" @click="showMenu" class="absolute top-4">
+      <img src="./assets/menu.png" alt="menu" class="h-7 w-7" />
+    </button>
   </div>
-  <div
+  <nav
     v-if="menuShowed"
     @click="closeMenu"
     class="
@@ -24,7 +20,7 @@
       w-full
       backdrop-filter backdrop-blur-sm
     "
-  ></div>
+  ></nav>
   <transition name="slide">
     <Menu
       v-if="menuShowed"

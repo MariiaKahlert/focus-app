@@ -6,14 +6,15 @@
       src="../assets/focus-2.png"
       alt=""
     />
-    <span class="mt-4 text-xl font-bold">Your total focus time reaches</span>
-    <span
+    <h2 class="mt-4 text-xl font-bold">Your total focus time reaches</h2>
+    <div
       class="mt-4 p-2 border-2 border-yellow-800 rounded-lg font-bold text-xl"
-      >{{ this.totalFocusTime }}
-      {{ this.totalFocusTime === 1 ? "minute" : "minutes" }}</span
     >
+      {{ this.totalFocusTime }}
+      {{ this.totalFocusTime === 1 ? "minute" : "minutes" }}
+    </div>
     <div class="w-full mt-12 flex flex-col items-center">
-      <h1 class="text-xl font-bold">Your achievements</h1>
+      <h2 class="text-xl font-bold">Your achievements</h2>
       <div
         v-for="label in labels"
         :key="label.name"

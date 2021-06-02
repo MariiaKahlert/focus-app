@@ -2,14 +2,14 @@
   <div class="h-full flex flex-col items-center">
     <template v-if="!timerStarted">
       <h1 class="font-bold text-4xl">Focus</h1>
-      <h1 v-if="!congrats" class="text-center text-xl w-2/3 mt-4">
+      <h2 v-if="!congrats" class="text-center text-xl w-2/3 mt-4">
         Try setting a timer up to 60 minutes and start focusing
-      </h1>
-      <h1 v-else class="text-center text-xl w-2/3">
+      </h2>
+      <h2 v-else class="text-center text-xl w-2/3">
         Congrats! You've managed to focus during
         <strong>{{ initialTimeLimitInMin }}</strong>
         {{ initialTimeLimitInMin === "1" ? "minute" : "minutes" }}!
-      </h1>
+      </h2>
     </template>
     <Timer
       @startTimer="startTimer"

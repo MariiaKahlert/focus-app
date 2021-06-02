@@ -184,11 +184,6 @@ export default {
   },
   props: {},
   mounted: async function () {
-    // this.stopAuthStateChanged = auth.onAuthStateChanged(async (user) => {
-    // this.currentUser = user;
-    // if (!this.currentUser) {
-    //   return;
-    // }
     try {
       // Add new user to Firestore
       const user = await db
@@ -227,11 +222,8 @@ export default {
     } catch (err) {
       console.log("Error is MainTimer mounted: ", err);
     }
-    // });
   },
-  // unmounted: function () {
-  //   this.stopAuthStateChanged();
-  // },
+
   methods: {
     async handleCreate() {
       try {

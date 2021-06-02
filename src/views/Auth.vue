@@ -2,9 +2,9 @@
   <div class="h-full flex flex-col items-center">
     <div class="flex flex-col items-center text-center">
       <h1 class="font-bold text-4xl">Focus</h1>
-      <p class="mt-4 w-2/3 text-xl text-yellow-800">
+      <h2 class="mt-4 w-2/3 text-xl text-yellow-800">
         Stay in focus whenever you need
-      </p>
+      </h2>
       <img
         style="width: 200px; height: 200px"
         class="mt-4"
