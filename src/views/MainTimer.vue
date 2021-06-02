@@ -1,6 +1,16 @@
 <template>
-  <button type="button" @click="showPlayer" class="absolute right-4">
-    <img src="../assets/music-player.png" alt="" class="h-8 w-8" />
+  <button
+    type="button"
+    @click="showPlayer"
+    class="absolute right-4 focus:outline-none"
+  >
+    <img
+      v-if="!playerShowed"
+      src="../assets/music-player.png"
+      alt=""
+      class="h-8 w-8"
+    />
+    <img v-else src="../assets/stop-button.png" alt="" class="h-8 w-8" />
   </button>
   <audio
     class="hidden"
@@ -291,7 +301,6 @@ export default {
       }
     },
     showPlayer: function () {
-      console.log("Show player");
       this.playerShowed = !this.playerShowed;
     },
   },
