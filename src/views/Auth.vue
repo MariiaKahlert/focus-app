@@ -118,4 +118,8 @@ export default {
 #firebaseui-auth-container {
   font-family: "Work Sans", sans-serif !important;
 }
+
+#firebaseui-auth-container .mdl-card {
+  background-color: #fffbeb !important;
+}
 </style>
