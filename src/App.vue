@@ -35,18 +35,13 @@
 </template>
 
 <script>
-import { auth } from "./main";
+import { currentUser } from "./main";
 export default {
   data: function () {
     return {
-      currentUser: null,
+      currentUser,
       menuShowed: false,
     };
-  },
-  mounted: function () {
-    auth.onAuthStateChanged((user) => {
-      this.currentUser = user;
-    });
   },
   methods: {
     showMenu: function () {

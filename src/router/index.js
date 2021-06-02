@@ -9,7 +9,7 @@ const routes = [
   {
     path: "/",
     redirect: () => {
-      if (!currentUser) {
+      if (!currentUser.value) {
         return "/welcome";
       } else {
         return "/main-timer";
@@ -21,7 +21,7 @@ const routes = [
     name: "Auth",
     component: Auth,
     beforeEnter: (to, from, next) => {
-      if (currentUser) {
+      if (currentUser.value) {
         next("/main-timer");
         return;
       }
@@ -33,7 +33,7 @@ const routes = [
     name: "TrialTimer",
     component: TrialTimer,
     beforeEnter: (to, from, next) => {
-      if (currentUser) {
+      if (currentUser.value) {
         next("/main-timer");
         return;
       }
@@ -45,7 +45,7 @@ const routes = [
     name: "MainTimer",
     component: MainTimer,
     beforeEnter: (to, from, next) => {
-      if (!currentUser) {
+      if (!currentUser.value) {
         next("/welcome");
         return;
       }
@@ -57,7 +57,7 @@ const routes = [
     name: "Statistics",
     component: Statistics,
     beforeEnter: (to, from, next) => {
-      if (!currentUser) {
+      if (!currentUser.value) {
         next("/welcome");
         return;
       }

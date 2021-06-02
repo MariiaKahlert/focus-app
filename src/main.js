@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, ref } from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
@@ -46,7 +46,7 @@ export const auth = firebase.auth();
 // Initialize the FirebaseUI Widget using Firebase.
 export const authUi = new firebaseui.auth.AuthUI(auth);
 
-export let currentUser = null;
+export let currentUser = ref(null);
 let appMounted = false;
 
 const app = createApp(App);
@@ -64,7 +64,7 @@ const mountApp = () => {
 };
 
 auth.onAuthStateChanged((user) => {
-  currentUser = user;
+  currentUser.value = user;
   if (!user) {
     router.push("/welcome");
   }

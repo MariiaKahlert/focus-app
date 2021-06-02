@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { db, auth } from "../main";
+import { db, currentUser } from "../main";
 export default {
   data: function () {
     return {
@@ -49,29 +49,20 @@ export default {
     };
   },
   mounted: async function () {
-    this.stopAuthStateChanged = auth.onAuthStateChanged(async (user) => {
-      this.currentUser = user;
-      if (!this.currentUser) {
-        return;
-      }
-      try {
-        const loggedInUser = await db
-          .collection("users")
-          .doc(this.currentUser.uid)
-          .get();
-        this.totalFocusTime = loggedInUser.data().total_focus_time;
-        const loggedInUserLabels = await db
-          .collection("labels")
-          .where("user_id", "==", this.currentUser.uid)
-          .get();
-        this.labels = loggedInUserLabels.docs.map((label) => label.data());
-      } catch (err) {
-        console.log("Error in Statistics mounted: ", err);
-      }
-    });
-  },
-  unmounted: function () {
-    this.stopAuthStateChanged();
+    try {
+      const loggedInUser = await db
+        .collection("users")
+        .doc(currentUser.value.uid)
+        .get();
+      this.totalFocusTime = loggedInUser.data().total_focus_time;
+      const loggedInUserLabels = await db
+        .collection("labels")
+        .where("user_id", "==", currentUser.value.uid)
+        .get();
+      this.labels = loggedInUserLabels.docs.map((label) => label.data());
+    } catch (err) {
+      console.log("Error in Statistics mounted: ", err);
+    }
   },
 };
 </script>

@@ -163,13 +163,13 @@
 </template>
 
 <script>
-import { db, auth } from "../main";
+import { db, currentUser } from "../main";
 import firebase from "firebase/app";
 export default {
   name: "MainTimer",
   data: function () {
     return {
-      currentUser: null,
+      // currentUser: null,
       labels: [],
       labelName: null,
       labelColor: null,
@@ -184,61 +184,61 @@ export default {
   },
   props: {},
   mounted: async function () {
-    this.stopAuthStateChanged = auth.onAuthStateChanged(async (user) => {
-      this.currentUser = user;
-      if (!this.currentUser) {
-        return;
+    // this.stopAuthStateChanged = auth.onAuthStateChanged(async (user) => {
+    // this.currentUser = user;
+    // if (!this.currentUser) {
+    //   return;
+    // }
+    try {
+      // Add new user to Firestore
+      const user = await db
+        .collection("users")
+        .doc(currentUser.value.uid)
+        .get();
+      if (!user.exists) {
+        await db.collection("users").doc(currentUser.value.uid).set({
+          name: currentUser.value.displayName,
+          total_focus_time: 0,
+        });
       }
-      try {
-        // Add new user to Firestore
-        const user = await db
-          .collection("users")
-          .doc(this.currentUser.uid)
-          .get();
-        if (!user.exists) {
-          await db.collection("users").doc(this.currentUser.uid).set({
-            name: this.currentUser.displayName,
-            total_focus_time: 0,
+
+      // Get and/or add labels
+      const labelsQuery = db
+        .collection("labels")
+        .where("user_id", "==", currentUser.value.uid);
+      const allLabels = await labelsQuery.get();
+      const defaultLabels = ["Work", "Study"];
+      if (allLabels.docs.length === 0) {
+        for (let label of defaultLabels) {
+          await db.collection("labels").add({
+            name: label,
+            default: true,
+            total_minutes: 0,
+            user_id: currentUser.value.uid,
           });
         }
-
-        // Get and/or add labels
-        const labelsQuery = db
-          .collection("labels")
-          .where("user_id", "==", this.currentUser.uid);
-        const allLabels = await labelsQuery.get();
-        const defaultLabels = ["Work", "Study"];
-        if (allLabels.docs.length === 0) {
-          for (let label of defaultLabels) {
-            await db.collection("labels").add({
-              name: label,
-              default: true,
-              total_minutes: 0,
-              user_id: this.currentUser.uid,
-            });
-          }
-        }
-        labelsQuery.onSnapshot(async (snapshot) => {
-          this.labels = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-        });
-      } catch (err) {
-        console.log("Error is MainTimer mounted: ", err);
       }
-    });
+      labelsQuery.onSnapshot(async (snapshot) => {
+        this.labels = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+      });
+    } catch (err) {
+      console.log("Error is MainTimer mounted: ", err);
+    }
+    // });
   },
-  unmounted: function () {
-    this.stopAuthStateChanged();
-  },
+  // unmounted: function () {
+  //   this.stopAuthStateChanged();
+  // },
   methods: {
     async handleCreate() {
       try {
         await db.collection("labels").add({
           name: this.labelName,
           total_minutes: 0,
-          user_id: this.currentUser.uid,
+          user_id: currentUser.value.uid,
         });
         this.closeCreateLabel();
       } catch (err) {
@@ -272,7 +272,7 @@ export default {
       try {
         await db
           .collection("users")
-          .doc(this.currentUser.uid)
+          .doc(currentUser.value.uid)
           .update({
             total_focus_time: firebase.firestore.FieldValue.increment(
               parseInt(this.totalFocusTime)

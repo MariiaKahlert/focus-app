@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!loading"
+    v-if="currentUser"
     class="
       h-full
       bg-yellow-800
@@ -73,19 +73,12 @@
 </template>
 
 <script>
-import { auth } from "../main";
+import { auth, currentUser } from "../main";
 export default {
   data: function () {
     return {
-      currentUser: null,
-      loading: true,
+      currentUser,
     };
-  },
-  mounted: function () {
-    auth.onAuthStateChanged((user) => {
-      this.currentUser = user;
-      this.loading = false;
-    });
   },
   methods: {
     handleLogout: function () {
