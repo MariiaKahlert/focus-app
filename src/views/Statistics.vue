@@ -6,8 +6,72 @@
       src="../assets/focus-2.png"
       alt=""
     />
-    <h1 class="text-xl font-bold w-4/5 text-center">
-      Keep track of your progress
-    </h1>
+    <span class="mt-4 text-xl font-bold">Your total focus time reaches</span>
+    <span
+      class="mt-4 p-2 border-2 border-yellow-800 rounded-lg font-bold text-xl"
+      >{{ this.totalFocusTime }} minutes</span
+    >
+    <div class="w-full mt-12 flex flex-col items-center">
+      <h1 class="text-xl font-bold">Your tasks</h1>
+      <div
+        v-for="label in labels"
+        :key="label.name"
+        class="w-full flex items-center justify-evenly mt-6 text-lg"
+      >
+        <span class="bg-yellow-800 text-yellow-50 px-4 py-2 rounded-lg">{{
+          label.name
+        }}</span>
+        <div class="flex items-center">
+          <img
+            src="../assets/focus-4.png"
+            alt=""
+            style="width: 35px; height: 35px"
+          />
+          <span class="ml-4"
+            ><strong>{{ label.total_minutes }}</strong>
+            {{ label.total_minutes === 1 ? "minute" : "minutes" }}</span
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<script>
+import { db, auth } from "../main";
+export default {
+  data: function () {
+    return {
+      stopAuthStateChanged: null,
+      totalFocusTime: null,
+      labels: [],
+    };
+  },
+  mounted: async function () {
+    this.stopAuthStateChanged = auth.onAuthStateChanged(async (user) => {
+      this.currentUser = user;
+      if (!this.currentUser) {
+        return;
+      }
+      try {
+        const loggedInUser = await db
+          .collection("users")
+          .doc(this.currentUser.uid)
+          .get();
+        this.totalFocusTime = loggedInUser.data().total_focus_time;
+        const loggedInUserLabels = await db
+          .collection("labels")
+          .where("user_id", "==", this.currentUser.uid)
+          .get();
+        this.labels = loggedInUserLabels.docs.map((label) => label.data());
+        console.log(this.labels);
+      } catch (err) {
+        console.log("Error in Statistics mounted: ", err);
+      }
+    });
+  },
+  unmounted: function () {
+    this.stopAuthStateChanged();
+  },
+};
+</script>
