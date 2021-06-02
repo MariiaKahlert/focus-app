@@ -246,30 +246,38 @@ export default {
     timerUp: async function (setTimeLimitInMin) {
       this.timerStarted = false;
       this.totalFocusTime = setTimeLimitInMin;
-      await db
-        .collection("users")
-        .doc(this.currentUser.uid)
-        .update({
-          total_focus_time: firebase.firestore.FieldValue.increment(
-            parseInt(this.totalFocusTime)
-          ),
-        });
-      if (this.selectedLabelId) {
+      try {
         await db
-          .collection("labels")
-          .doc(this.selectedLabelId)
+          .collection("users")
+          .doc(this.currentUser.uid)
           .update({
-            total_minutes: firebase.firestore.FieldValue.increment(
+            total_focus_time: firebase.firestore.FieldValue.increment(
               parseInt(this.totalFocusTime)
             ),
           });
+        if (this.selectedLabelId) {
+          await db
+            .collection("labels")
+            .doc(this.selectedLabelId)
+            .update({
+              total_minutes: firebase.firestore.FieldValue.increment(
+                parseInt(this.totalFocusTime)
+              ),
+            });
+        }
+      } catch (err) {
+        console.log("Error in MainTimer timerUp method: ", err);
       }
     },
     timerCancelled: function () {
       this.timerStarted = false;
     },
     deleteLabel: async function (labelId) {
-      await db.collection("labels").doc(labelId).delete();
+      try {
+        await db.collection("labels").doc(labelId).delete();
+      } catch (err) {
+        console.log("Error in MainTimer deleteLabel method: ", err);
+      }
     },
   },
 };

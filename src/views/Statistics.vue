@@ -64,7 +64,6 @@ export default {
           .where("user_id", "==", this.currentUser.uid)
           .get();
         this.labels = loggedInUserLabels.docs.map((label) => label.data());
-        console.log(this.labels);
       } catch (err) {
         console.log("Error in Statistics mounted: ", err);
       }

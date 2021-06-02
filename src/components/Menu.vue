@@ -88,7 +88,7 @@ export default {
     });
   },
   methods: {
-    handleLogout: async function () {
+    handleLogout: function () {
       auth.signOut();
       this.$emit("closeMenu");
     },
