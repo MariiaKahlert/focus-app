@@ -1,6 +1,6 @@
 <template>
   <button type="button" @click="showPlayer" class="absolute right-4">
-    Sound
+    <img src="../assets/music-player.png" alt="" class="h-8 w-8" />
   </button>
   <audio
     class="hidden"
