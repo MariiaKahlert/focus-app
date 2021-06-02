@@ -12,7 +12,7 @@
       >{{ this.totalFocusTime }} minutes</span
     >
     <div class="w-full mt-12 flex flex-col items-center">
-      <h1 class="text-xl font-bold">Your tasks</h1>
+      <h1 class="text-xl font-bold">Your achievements</h1>
       <div
         v-for="label in labels"
         :key="label.name"

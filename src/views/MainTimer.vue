@@ -1,4 +1,14 @@
 <template>
+  <button type="button" @click="showPlayer" class="absolute right-4">
+    Sound
+  </button>
+  <audio
+    class="hidden"
+    v-if="playerShowed"
+    autoplay
+    controls
+    src="https://live.radioart.com/fAmbient.mp3"
+  ></audio>
   <div class="h-full flex flex-col items-center mt-12">
     <h1 v-if="!timerStarted" class="text-xl font-bold w-2/3 text-center">
       Set up a timer up to 60 min and start focusing
@@ -157,6 +167,7 @@ export default {
       stopAuthStateChanged: null,
       totalFocusTime: null,
       timerStarted: false,
+      playerShowed: false,
     };
   },
   props: {},
@@ -278,6 +289,10 @@ export default {
       } catch (err) {
         console.log("Error in MainTimer deleteLabel method: ", err);
       }
+    },
+    showPlayer: function () {
+      console.log("Show player");
+      this.playerShowed = !this.playerShowed;
     },
   },
 };
