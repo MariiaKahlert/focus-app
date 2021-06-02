@@ -41,18 +41,18 @@
       </span>
     </div>
 
-    <Button v-if="!timerStarted" class="mt-12" @click="startTimer"
-      >Focus</Button
+    <BigButton v-if="!timerStarted" class="mt-12" @click="startTimer"
+      >Focus</BigButton
     >
 
-    <Button
+    <BigButton
       design="outlined"
       class="mt-12 text-lg"
       v-else-if="cancelTimeCountdown"
       @click="stopTimer"
     >
       Cancel ({{ cancelTimeCountdown }})
-    </Button>
+    </BigButton>
   </div>
 </template>
 
@@ -60,7 +60,7 @@
 export default {
   data: function () {
     return {
-      setTimeLimitInMin: null,
+      initialTimeLimitInMin: null,
       timeLimitInMin: null,
       timePassed: 0,
       timerInterval: null,
@@ -82,9 +82,9 @@ export default {
     startTimer: function () {
       if (this.timeLimitInMin) {
         this.timerStarted = true;
-        this.setTimeLimitInMin = this.timeLimitInMin;
+        this.initialTimeLimitInMin = this.timeLimitInMin;
         this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
-        this.$emit("startTimer", this.setTimeLimitInMin);
+        this.$emit("startTimer", this.initialTimeLimitInMin);
       }
     },
     stopTimer: function () {
@@ -94,7 +94,7 @@ export default {
       clearInterval(this.timerInterval);
       this.timerStarted = false;
       if (this.timeLimitInMin * 60 === this.timePassed) {
-        this.$emit("timerUp", this.setTimeLimitInMin);
+        this.$emit("timerUp", this.initialTimeLimitInMin);
       } else {
         this.$emit("timerCancelled");
       }

@@ -3,12 +3,12 @@
     <template v-if="!timerStarted">
       <h1 class="font-bold text-4xl">Focus</h1>
       <h1 v-if="!congrats" class="text-center text-xl w-2/3 mt-4">
-        Try setting your own timer up to 60 min and focus on your task
+        Try setting a timer up to 60 minutes and start focusing
       </h1>
       <h1 v-else class="text-center text-xl w-2/3">
         Congrats! You've managed to focus during
-        <strong>{{ setTimeLimitInMin }}</strong>
-        {{ setTimeLimitInMin === "1" ? "minute" : "minutes" }}!
+        <strong>{{ initialTimeLimitInMin }}</strong>
+        {{ initialTimeLimitInMin === "1" ? "minute" : "minutes" }}!
       </h1>
     </template>
     <Timer
@@ -28,15 +28,15 @@
 export default {
   data: function () {
     return {
-      setTimeLimitInMin: null,
+      initialTimeLimitInMin: null,
       timerStarted: false,
       congrats: false,
     };
   },
   methods: {
-    startTimer: function (setTimeLimitInMin) {
+    startTimer: function (initialTimeLimitInMin) {
       this.timerStarted = true;
-      this.setTimeLimitInMin = setTimeLimitInMin;
+      this.initialTimeLimitInMin = initialTimeLimitInMin;
     },
     timerUp: function () {
       this.timerStarted = false;

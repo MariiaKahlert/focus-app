@@ -3,7 +3,7 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import "./index.css";
-import Button from "./components/Button";
+import BigButton from "./components/BigButton";
 import Timer from "./components/Timer";
 import Menu from "./components/Menu";
 
@@ -51,7 +51,7 @@ let appMounted = false;
 
 const app = createApp(App);
 
-app.component("Button", Button);
+app.component("BigButton", BigButton);
 app.component("Timer", Timer);
 app.component("Menu", Menu);
 

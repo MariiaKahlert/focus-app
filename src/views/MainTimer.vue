@@ -23,7 +23,7 @@
   <!-- Main Timer -->
   <div class="h-full flex flex-col items-center mt-12">
     <h1 v-if="!timerStarted" class="text-xl font-bold w-2/3 text-center">
-      Set up a timer up to 60 min and start focusing
+      Set a timer up to 60 minutes and stay focused
     </h1>
     <!-- All labels -->
     <div v-if="!timerStarted" class="flex w-full justify-evenly flex-wrap mt-4">
@@ -266,9 +266,9 @@ export default {
       this.selectedLabel = label;
       this.timerStarted = true;
     },
-    timerUp: async function (setTimeLimitInMin) {
+    timerUp: async function (initialTimeLimitInMin) {
       this.timerStarted = false;
-      this.totalFocusTime = setTimeLimitInMin;
+      this.totalFocusTime = initialTimeLimitInMin;
       try {
         await db
           .collection("users")

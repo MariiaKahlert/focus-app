@@ -13,7 +13,7 @@
       />
     </div>
     <div class="flex flex-col items-center mt-10">
-      <Button @click.prevent="handleTryNow">Try now</Button>
+      <BigButton @click.prevent="handleTryNow">Try now</BigButton>
       <p class="mt-6 text-xl text-yellow-800 text-opacity-75">or</p>
       <div
         :key="new Date().getTime()"
