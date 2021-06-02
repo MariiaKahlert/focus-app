@@ -34,8 +34,11 @@
             text-xl
             self-start
           "
-          >Timer</router-link
         >
+          <template #default="{ isActive }"
+            ><span :class="{ 'font-bold': isActive }">Timer</span>
+          </template>
+        </router-link>
 
         <router-link
           to="/statistics"
@@ -48,7 +51,9 @@
             self-start
             mt-4
           "
-          >Statistics</router-link
+          ><template #default="{ isActive }"
+            ><span :class="{ 'font-bold': isActive }">Statistics</span>
+          </template></router-link
         >
       </div>
     </div>
