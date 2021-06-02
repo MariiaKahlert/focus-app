@@ -9,19 +9,20 @@
     <span class="mt-4 text-xl font-bold">Your total focus time reaches</span>
     <span
       class="mt-4 p-2 border-2 border-yellow-800 rounded-lg font-bold text-xl"
-      >{{ this.totalFocusTime }} minutes</span
+      >{{ this.totalFocusTime }}
+      {{ this.totalFocusTime === 1 ? "minute" : "minutes" }}</span
     >
     <div class="w-full mt-12 flex flex-col items-center">
       <h1 class="text-xl font-bold">Your achievements</h1>
       <div
         v-for="label in labels"
         :key="label.name"
-        class="w-full flex items-center justify-evenly mt-6 text-lg"
+        class="w-full flex items-center justify-between mt-6 text-lg"
       >
-        <span class="bg-yellow-800 text-yellow-50 px-4 py-2 rounded-lg">{{
+        <span class="bg-yellow-800 text-yellow-50 px-4 py-2 rounded-lg ml-5">{{
           label.name
         }}</span>
-        <div class="flex items-center">
+        <div class="flex items-center mr-5">
           <img
             src="../assets/focus-4.png"
             alt=""

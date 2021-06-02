@@ -1,4 +1,5 @@
 <template>
+  <!-- Player -->
   <button
     type="button"
     @click="showPlayer"
@@ -19,11 +20,12 @@
     controls
     src="https://live.radioart.com/fAmbient.mp3"
   ></audio>
+  <!-- Main Timer -->
   <div class="h-full flex flex-col items-center mt-12">
     <h1 v-if="!timerStarted" class="text-xl font-bold w-2/3 text-center">
       Set up a timer up to 60 min and start focusing
     </h1>
-
+    <!-- All labels -->
     <div v-if="!timerStarted" class="flex w-full justify-evenly flex-wrap mt-4">
       <button
         v-for="label in labels"
@@ -56,6 +58,7 @@
         >
       </button>
     </div>
+    <!-- Selected label after the timer has been started -->
     <div
       v-else
       class="flex flex-col items-center w-full justify-evenly flex-wrap mt-4"
@@ -83,7 +86,7 @@
         {{ selectedLabel.name }}
       </span>
     </div>
-
+    <!-- Create label -->
     <div
       v-if="!timerStarted && !createLabelShowed"
       class="flex text-lg items-center mt-6"
@@ -104,7 +107,6 @@
         +
       </button>
     </div>
-
     <form
       v-show="!timerStarted && createLabelShowed"
       @submit.prevent="handleCreate"
@@ -150,7 +152,7 @@
         +
       </button>
     </form>
-
+    <!-- Timer itself -->
     <Timer
       class="mb-12"
       @startTimer="startTimer"
