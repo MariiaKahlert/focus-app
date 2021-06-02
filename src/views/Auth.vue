@@ -15,7 +15,11 @@
     <div class="flex flex-col items-center mt-10">
       <Button @click.prevent="handleTryNow">Try now</Button>
       <p class="mt-6 text-xl text-yellow-800 text-opacity-75">or</p>
-      <div id="firebaseui-auth-container" class="mt-2 mb-4"></div>
+      <div
+        :key="new Date().getTime()"
+        id="firebaseui-auth-container"
+        class="mt-2 mb-4"
+      ></div>
     </div>
     <p class="text-yellow-800 text-opacity-75 text-center">
       Illustrations designed by Freepik Storyset
