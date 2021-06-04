@@ -5,7 +5,7 @@
       <h2 v-if="!congrats" class="text-center text-xl w-2/3 mt-4">
         Try setting a timer up to 60 minutes and start focusing
       </h2>
-      <h2 v-else class="text-center text-xl w-2/3">
+      <h2 v-else class="text-center text-xl w-2/3 mt-4">
         Congrats! You've managed to focus during
         <strong>{{ initialTimeLimitInMin }}</strong>
         {{ initialTimeLimitInMin === "1" ? "minute" : "minutes" }}!

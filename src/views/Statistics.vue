@@ -7,9 +7,7 @@
       alt=""
     />
     <h2 class="mt-4 text-xl font-bold">Your total focus time reaches</h2>
-    <div
-      class="mt-4 p-2 border-2 border-yellow-800 rounded-lg font-bold text-xl"
-    >
+    <div class="mt-4 p-2 border border-yellow-800 rounded-lg text-xl">
       {{ this.totalFocusTime }}
       {{ this.totalFocusTime === 1 ? "minute" : "minutes" }}
     </div>

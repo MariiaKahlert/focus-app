@@ -131,7 +131,7 @@
         v-model="labelName"
         class="
           bg-yellow-50
-          border-2 border-yellow-800 border-opacity-50
+          border border-yellow-800 border-opacity-50
           rounded-full
           py-1
           px-2
