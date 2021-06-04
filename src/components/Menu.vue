@@ -16,7 +16,6 @@
       <div class="text-xl flex flex-col items-center">
         <img
           style="width: 100px; height: 100px"
-          class=""
           src="../assets/focus-3.png"
           alt=""
         />

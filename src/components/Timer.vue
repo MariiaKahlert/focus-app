@@ -53,6 +53,13 @@
     >
       Cancel ({{ cancelTimeCountdown }})
     </BigButton>
+    <button
+      v-else-if="trialTimerMode"
+      @click="stopTimer"
+      class="text-xl mt-12 focus:outline-none"
+    >
+      Back
+    </button>
   </div>
 </template>
 
@@ -67,6 +74,12 @@ export default {
       timerStarted: false,
       cancelTimeInSec: 10,
     };
+  },
+  props: {
+    trialTimerMode: {
+      type: Boolean,
+      default: false,
+    },
   },
   mounted: function () {
     this.timerStarted;

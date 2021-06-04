@@ -11,10 +11,18 @@
         {{ initialTimeLimitInMin === "1" ? "minute" : "minutes" }}!
       </h2>
     </template>
+    <img
+      v-else
+      style="width: 200px; height: 200px"
+      class=""
+      src="../assets/focus-trial.png"
+      alt=""
+    />
     <Timer
       @startTimer="startTimer"
       @timerUp="timerUp"
       @timerCancelled="timerCancelled"
+      :trialTimerMode="true"
       class="mt-12"
     />
 
